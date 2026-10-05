@@ -1,0 +1,1524 @@
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBJ Lingo — تعلّم • تكلّم • أتقن</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f7fb;
+    --bg-2:#eef3fa;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --brand:#0ea5a4;
+    --brand-2:#f97316;
+    --brand-3:#6366f1;
+    --accent:#fbbf24;
+    --border:#e2e8f0;
+    --shadow:0 10px 30px -10px rgba(14,165,164,.25);
+  }
+  .dark{
+    --bg:#0b1020;
+    --bg-2:#0f1629;
+    --card:#131a2e;
+    --text:#e2e8f0;
+    --muted:#94a3b8;
+    --border:#1e2a44;
+    --shadow:0 10px 30px -10px rgba(0,0,0,.5);
+  }
+  *{font-family:'Cairo',sans-serif;}
+  body{background:var(--bg);color:var(--text);transition:background .3s,color .3s;}
+  .card{background:var(--card);border:1px solid var(--border);}
+  .brand-grad{background:linear-gradient(135deg,#0ea5a4 0%,#22c55e 50%,#f97316 100%);}
+  .text-grad{background:linear-gradient(135deg,#0ea5a4,#22c55e,#f97316);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .glass{backdrop-filter:blur(12px);background:rgba(255,255,255,.7);}
+  .dark .glass{background:rgba(19,26,46,.7);}
+  .nav-item{transition:all .2s ease;}
+  .nav-item:hover{background:var(--bg-2);}
+  .nav-item.active{background:linear-gradient(135deg,#0ea5a4,#22c55e);color:#fff;}
+  .btn-primary{background:linear-gradient(135deg,#0ea5a4,#22c55e);color:#fff;box-shadow:var(--shadow);transition:transform .15s;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-primary:active{transform:translateY(0);}
+  .lang-card{transition:all .25s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+  .lang-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 25px 50px -15px rgba(14,165,164,.45);}
+  .level-card{transition:all .2s;cursor:pointer;}
+  .level-card:not(.locked):hover{transform:translateY(-4px);border-color:var(--brand);}
+  .level-card.locked{opacity:.55;cursor:not-allowed;}
+  .pulse-ring{animation:pulse 2s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,165,164,.5)}70%{box-shadow:0 0 0 18px rgba(14,165,164,0)}100%{box-shadow:0 0 0 0 rgba(14,165,164,0)}}
+  .fade-in{animation:fadeIn .5s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .pop{animation:pop .35s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+  .streak-flame{animation:flame 1.5s ease-in-out infinite;}
+  @keyframes flame{0%,100%{transform:scale(1) rotate(-3deg)}50%{transform:scale(1.12) rotate(3deg)}}
+  .progress-bar{transition:width .6s cubic-bezier(.4,0,.2,1);}
+  .quiz-option{transition:all .15s;}
+  .quiz-option:hover{border-color:var(--brand);background:var(--bg-2);transform:translateX(-3px);}
+  .quiz-option.correct{background:rgba(34,197,94,.15);border-color:#22c55e;}
+  .quiz-option.wrong{background:rgba(239,68,68,.15);border-color:#ef4444;}
+  .scrollbar-hide::-webkit-scrollbar{display:none;}
+  .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none;}
+  .word-chip{cursor:grab;user-select:none;transition:all .15s;}
+  .word-chip:hover{transform:translateY(-2px);}
+  .word-chip.selected{background:linear-gradient(135deg,#0ea5a4,#22c55e);color:#fff;border-color:transparent;}
+  .modal-bg{backdrop-filter:blur(6px);background:rgba(0,0,0,.5);}
+  .toggle{width:48px;height:26px;background:var(--border);border-radius:99px;position:relative;cursor:pointer;transition:background .2s;}
+  .toggle.on{background:linear-gradient(135deg,#0ea5a4,#22c55e);}
+  .toggle::after{content:'';position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .2s;}
+  .toggle.on::after{transform:translateX(-22px);}
+  .badge-shine{position:relative;overflow:hidden;}
+  .badge-shine::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(60deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s;}
+  .badge-shine:hover::after{transform:translateX(100%);}
+  .confetti{position:fixed;width:10px;height:10px;pointer-events:none;z-index:9999;}
+  .ring-progress{transform:rotate(-90deg);}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-track{background:var(--bg-2);}
+  ::-webkit-scrollbar-thumb{background:var(--brand);border-radius:99px;}
+  .toast{animation:toastIn .3s,toastOut .3s 2.7s forwards;}
+  @keyframes toastIn{from{transform:translateY(100px);opacity:0}to{transform:translateY(0);opacity:1}}
+  @keyframes toastOut{to{transform:translateY(100px);opacity:0}}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Splash Screen -->
+<div id="splash" class="fixed inset-0 z-[100] flex flex-col items-center justify-center brand-grad text-white">
+  <div class="text-center fade-in">
+    <div class="w-28 h-28 rounded-3xl bg-white/15 backdrop-blur flex items-center justify-center mx-auto mb-6 pulse-ring">
+      <span class="text-5xl font-bold" style="font-family:'Fredoka'">M</span>
+    </div>
+    <h1 class="text-4xl font-black mb-2" style="font-family:'Fredoka'">MBJ Lingo</h1>
+    <p class="text-white/90 text-lg">تعلّم • تكلّم • أتقن</p>
+    <p class="text-white/70 text-sm mt-4">ثانوية محمد بن جدو — قسم اللغات</p>
+  </div>
+</div>
+
+<!-- App Layout -->
+<div id="app" class="hidden">
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-40 glass border-b border-[var(--border)]">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-[var(--bg-2)]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="navigate('home')">
+          <div class="w-10 h-10 rounded-xl brand-grad flex items-center justify-center text-white font-bold text-xl" style="font-family:'Fredoka'">M</div>
+          <div class="hidden sm:block">
+            <div class="font-bold leading-tight">MBJ Lingo</div>
+            <div class="text-xs text-[var(--muted)]">تعلّم • تكلّم • أتقن</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="flex items-center gap-1.5 bg-[var(--bg-2)] px-3 py-1.5 rounded-full text-sm font-bold">
+          <span class="text-[var(--brand-2)]">⚡</span><span id="topXP">0</span>
+        </div>
+        <div class="flex items-center gap-1.5 bg-[var(--bg-2)] px-3 py-1.5 rounded-full text-sm font-bold">
+          <span class="streak-flame">🔥</span><span id="topStreak">0</span>
+        </div>
+        <button onclick="navigate('profile')" class="w-9 h-9 rounded-full brand-grad text-white font-bold flex items-center justify-center" id="avatarBtn">ط</button>
+        <button onclick="toggleTheme()" class="p-2 rounded-xl hover:bg-[var(--bg-2)]" id="themeBtn">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9 9 0 008.354-5.646z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto flex gap-6 px-4 py-6">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="lg:w-60 flex-shrink-0 hidden lg:block">
+      <nav class="card rounded-2xl p-3 sticky top-20 space-y-1">
+        <button onclick="navigate('home')" data-nav="home" class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">🏠</span><span>الرئيسية</span>
+        </button>
+        <button onclick="navigate('levels')" data-nav="levels" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">📚</span><span>المستويات</span>
+        </button>
+        <button onclick="navigate('conversation')" data-nav="conversation" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">💬</span><span>المحادثة</span>
+        </button>
+        <button onclick="navigate('vocabulary')" data-nav="vocabulary" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">📖</span><span>المفردات</span>
+        </button>
+        <button onclick="navigate('grammar')" data-nav="grammar" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">✏️</span><span>القواعد</span>
+        </button>
+        <button onclick="navigate('leaderboard')" data-nav="leaderboard" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">🏆</span><span>لوحة المتصدرين</span>
+        </button>
+        <button onclick="navigate('progress')" data-nav="progress" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">📊</span><span>تقدمي</span>
+        </button>
+        <button onclick="navigate('profile')" data-nav="profile" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">👤</span><span>الملف الشخصي</span>
+        </button>
+        <button onclick="navigate('settings')" data-nav="settings" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">⚙️</span><span>الإعدادات</span>
+        </button>
+        <button onclick="navigate('about')" data-nav="about" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-right text-sm font-semibold">
+          <span class="text-xl">ℹ️</span><span>حول التطبيق</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0" id="mainView"></main>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass border-t border-[var(--border)]">
+    <div class="flex justify-around py-2">
+      <button onclick="navigate('home')" class="flex flex-col items-center text-xs gap-0.5 px-2 py-1.5 text-[var(--brand)]"><span class="text-xl">🏠</span><span>الرئيسية</span></button>
+      <button onclick="navigate('levels')" class="flex flex-col items-center text-xs gap-0.5 px-2 py-1.5"><span class="text-xl">📚</span><span>الدرس</span></button>
+      <button onclick="navigate('vocabulary')" class="flex flex-col items-center text-xs gap-0.5 px-2 py-1.5"><span class="text-xl">📖</span><span>كلمات</span></button>
+      <button onclick="navigate('progress')" class="flex flex-col items-center text-xs gap-0.5 px-2 py-1.5"><span class="text-xl">📊</span><span>تقدمي</span></button>
+      <button onclick="navigate('profile')" class="flex flex-col items-center text-xs gap-0.5 px-2 py-1.5"><span class="text-xl">👤</span><span>حسابي</span></button>
+    </div>
+  </nav>
+</div>
+
+<!-- Toast -->
+<div id="toastBox" class="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-[80] space-y-2"></div>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 z-[90] hidden items-center justify-center modal-bg" onclick="closeModal(event)">
+  <div class="card rounded-3xl p-6 max-w-md w-full mx-4 pop" onclick="event.stopPropagation()" id="modalContent"></div>
+</div>
+
+<script>
+// ===== State =====
+const state = {
+  user: { name:'طالب', favLang:'es', xp:0, streak:0, lessons:0, words:0, listening:0, speaking:0, achievements:0, longestStreak:0, dailyGoal:30, lastVisit:null },
+  currentLang: 'es',
+  currentLevel: null,
+  theme: 'light',
+  notifications: true,
+  sound: true,
+  uiLang: 'ar',
+  progress: { es:{A1:0,A2:0,B1:0,B2:0,C1:0}, en:{A1:0,A2:0,B1:0,B2:0,C1:0}, fr:{A1:0,A2:0,B1:0,B2:0,C1:0} }
+};
+
+const LANGS = {
+  es:{ flag:'🇪🇸', name:'الإسبانية', native:'Español', code:'es-ES', color:'from-yellow-400 via-red-500 to-red-600', accent:'#ef4444' },
+  en:{ flag:'🇬🇧', name:'الإنجليزية', native:'English', code:'en-GB', color:'from-blue-500 via-indigo-500 to-purple-600', accent:'#6366f1' },
+  fr:{ flag:'🇫🇷', name:'الفرنسية', native:'Français', code:'fr-FR', color:'from-blue-600 via-white to-red-600', accent:'#3b82f6' }
+};
+
+const LEVELS = {
+  A1:{ title:'A1 — المبتدئ', desc:'الحروف والنطق، الأرقام، الألوان، التحيات، التعريف بالنفس، الأيام والشهور، الكلمات الأساسية' },
+  A2:{ title:'A2 — أساسي', desc:'المحادثات اليومية، العائلة، المدرسة، السفر، الطعام، الأماكن، الأفعال الأساسية' },
+  B1:{ title:'B1 — متوسط', desc:'المحادثات المتوسطة، القواعد، الأزمنة، قراءة النصوص، الاستماع، الكتابة، التعبير' },
+  B2:{ title:'B2 — فوق المتوسط', desc:'القواعد المتقدمة، نصوص أطول، المحادثات المتقدمة، فهم الاستماع، التعبير الكتابي' },
+  C1:{ title:'C1 — متقدم', desc:'اللغة الأكاديمية، المفردات المتقدمة، النصوص المعقدة، النقاش والحوار، التعبير المتقدم' }
+};
+
+const LEVEL_ORDER = ['A1','A2','B1','B2','C1'];
+
+// Lesson data per language
+const LESSONS = {
+  es: {
+    A1:[
+      {title:'الحروف والنطق', words:[{w:'Hola',m:'مرحباً',ex:'Hola, ¿cómo estás?'},{w:'Adiós',m:'وداعاً'},{w:'Gracias',m:'شكراً'},{w:'Sí',m:'نعم'},{w:'No',m:'لا'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Hola','مرحباً'],['Gracias','شكراً'],['Sí','نعم'],['No','لا']]}},
+      {title:'الأرقام', words:[{w:'Uno',m:'واحد'},{w:'Dos',m:'اثنان'},{w:'Tres',m:'ثلاثة'},{w:'Cuatro',m:'أربعة'},{w:'Cinco',m:'خمسة'}], quiz:{type:'choice', q:'ما معنى "Tres"؟', options:['اثنان','ثلاثة','أربعة','خمسة'], answer:'ثلاثة'}},
+      {title:'الألوان', words:[{w:'Rojo',m:'أحمر'},{w:'Azul',m:'أزرق'},{w:'Verde',m:'أخضر'},{w:'Blanco',m:'أبيض'},{w:'Negro',m:'أسود'}], quiz:{type:'choice', q:'ما معنى "Azul"؟', options:['أحمر','أزرق','أخضر','أبيض'], answer:'أزرق'}},
+      {title:'التحيات', words:[{w:'Buenos días',m:'صباح الخير'},{w:'Buenas tardes',m:'مساء الخير'},{w:'Buenas noches',m:'تصبح على خير'},{w:'¿Qué tal?',m:'كيف حالك؟'},{w:'Mucho gusto',m:'سررت بلقائك'}], quiz:{type:'translate', q:'ترجم: صباح الخير', answer:'Buenos días'}},
+      {title:'التعريف بالنفس', words:[{w:'Me llamo',m:'اسمي'},{w:'Soy de',m:'أنا من'},{w:'Tengo',m:'لدي / عمري'},{w:'Vivo en',m:'أعيش في'},{w:'Encantado',m:'مسرور'}], quiz:{type:'order', q:'رتب الكلمات: me / llamo / Ana', answer:'Me llamo Ana'}},
+      {title:'الأيام والشهور', words:[{w:'Lunes',m:'الإثنين'},{w:'Martes',m:'الثلاثاء'},{w:'Enero',m:'يناير'},{w:'Febrero',m:'فبراير'},{w:'Marzo',m:'مارس'}], quiz:{type:'choice', q:'ما معنى "Lunes"؟', options:['الثلاثاء','الإثنين','الأربعاء','الجمعة'], answer:'الإثنين'}}
+    ],
+    A2:[
+      {title:'العائلة', words:[{w:'Padre',m:'الأب'},{w:'Madre',m:'الأم'},{w:'Hermano',m:'الأخ'},{w:'Hermana',m:'الأخت'},{w:'Abuelo',m:'الجد'}], quiz:{type:'choice', q:'ما معنى "Hermana"؟', options:['الأخ','الأخت','العم','الخال'], answer:'الأخت'}},
+      {title:'المدرسة', words:[{w:'Escuela',m:'المدرسة'},{w:'Profesor',m:'الأستاذ'},{w:'Libro',m:'الكتاب'},{w:'Lápiz',m:'القلم'},{w:'Tarea',m:'الواجب'}], quiz:{type:'choice', q:'ما معنى "Profesor"؟', options:['الطالب','الأستاذ','المدير','الحارس'], answer:'الأستاذ'}},
+      {title:'الطعام', words:[{w:'Pan',m:'الخبز'},{w:'Agua',m:'الماء'},{w:'Leche',m:'الحليب'},{w:'Manzana',m:'التفاح'},{w:'Carne',m:'اللحم'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Pan','الخبز'],['Agua','الماء'],['Leche','الحليب'],['Manzana','التفاح']]}},
+      {title:'السفر', words:[{w:'Tren',m:'القطار'},{w:'Avión',m:'الطائرة'},{w:'Hotel',m:'الفندق'},{w:'Pasaporte',m:'جواز السفر'},{w:'Maleta',m:'الحقيبة'}], quiz:{type:'choice', q:'ما معنى "Avión"؟', options:['القطار','الطائرة','السيارة','السفينة'], answer:'الطائرة'}}
+    ],
+    B1:[
+      {title:'الأزمنة', words:[{w:'Hablé',m:'تكلمت (ماضي)'},{w:'Hablo',m:'أتكلم (مضارع)'},{w:'Hablaré',m:'سأتكلم (مستقبل)'},{w:'He hablado',m:'لقد تكلمت'},{w:'Había hablado',m:'كنت قد تكلمت'}], quiz:{type:'choice', q:'ما زمن "Hablaré"؟', options:['ماضي','مضارع','مستقبل','شرطي'], answer:'مستقبل'}},
+      {title:'المحادثة المتوسطة', words:[{w:'¿Qué piensas?',m:'ماذا تظن؟'},{w:'En mi opinión',m:'في رأيي'},{w:'Estoy de acuerdo',m:'أنا موافق'},{w:'No estoy seguro',m:'لست متأكدًا'},{w:'Por ejemplo',m:'على سبيل المثال'}], quiz:{type:'translate', q:'ترجم: في رأيي', answer:'En mi opinión'}}
+    ],
+    B2:[{title:'القواعد المتقدمة', words:[{w:'Subjuntivo',m:'الشرطي التخيلي'},{w:'Condicional',m:'الشرطي'},{w:'Pasado perfecto',m:'الماضي التام'},{w:'Voz pasiva',m:'المبني للمجهول'},{w:'Pronombres',m:'الضمائر'}], quiz:{type:'choice', q:'ما معنى "Subjuntivo"؟', options:['الماضي','الشرطي التخيلي','المستقبل','المبني للمجهول'], answer:'الشرطي التخيلي'}}],
+    C1:[{title:'اللغة الأكاديمية', words:[{w:'Investigación',m:'البحث'},{w:'Hipótesis',m:'الفرضية'},{w:'Conclusión',m:'الخلاصة'},{w:'Análisis',m:'التحليل'},{w:'Argumento',m:'الحجة'}], quiz:{type:'choice', q:'ما معنى "Hipótesis"؟', options:['الخلاصة','الفرضية','التحليل','الحجة'], answer:'الفرضية'}}]
+  },
+  en: {
+    A1:[
+      {title:'الحروف والنطق', words:[{w:'Hello',m:'مرحباً',ex:'Hello, how are you?'},{w:'Goodbye',m:'وداعاً'},{w:'Thank you',m:'شكراً'},{w:'Yes',m:'نعم'},{w:'No',m:'لا'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Hello','مرحباً'],['Thank you','شكراً'],['Yes','نعم'],['No','لا']]}},
+      {title:'الأرقام', words:[{w:'One',m:'واحد'},{w:'Two',m:'اثنان'},{w:'Three',m:'ثلاثة'},{w:'Four',m:'أربعة'},{w:'Five',m:'خمسة'}], quiz:{type:'choice', q:'What does "Three" mean?', options:['اثنان','ثلاثة','أربعة','خمسة'], answer:'ثلاثة'}},
+      {title:'الألوان', words:[{w:'Red',m:'أحمر'},{w:'Blue',m:'أزرق'},{w:'Green',m:'أخضر'},{w:'White',m:'أبيض'},{w:'Black',m:'أسود'}], quiz:{type:'choice', q:'What does "Blue" mean?', options:['أحمر','أزرق','أخضر','أبيض'], answer:'أزرق'}},
+      {title:'التحيات', words:[{w:'Good morning',m:'صباح الخير'},{w:'Good evening',m:'مساء الخير'},{w:'Good night',m:'تصبح على خير'},{w:'How are you?',m:'كيف حالك؟'},{w:'Nice to meet you',m:'سررت بلقائك'}], quiz:{type:'translate', q:'ترجم: صباح الخير', answer:'Good morning'}},
+      {title:'التعريف بالنفس', words:[{w:'My name is',m:'اسمي'},{w:'I am from',m:'أنا من'},{w:'I am',m:'أنا عمري'},{w:'I live in',m:'أعيش في'},{w:'Pleased',m:'مسرور'}], quiz:{type:'order', q:'رتب الكلمات: name / is / My / Sara', answer:'My name is Sara'}},
+      {title:'الأيام والشهور', words:[{w:'Monday',m:'الإثنين'},{w:'Tuesday',m:'الثلاثاء'},{w:'January',m:'يناير'},{w:'February',m:'فبراير'},{w:'March',m:'مارس'}], quiz:{type:'choice', q:'What does "Monday" mean?', options:['الثلاثاء','الإثنين','الأربعاء','الجمعة'], answer:'الإثنين'}}
+    ],
+    A2:[
+      {title:'العائلة', words:[{w:'Father',m:'الأب'},{w:'Mother',m:'الأم'},{w:'Brother',m:'الأخ'},{w:'Sister',m:'الأخت'},{w:'Grandfather',m:'الجد'}], quiz:{type:'choice', q:'What does "Sister" mean?', options:['الأخ','الأخت','العم','الخال'], answer:'الأخت'}},
+      {title:'المدرسة', words:[{w:'School',m:'المدرسة'},{w:'Teacher',m:'الأستاذ'},{w:'Book',m:'الكتاب'},{w:'Pen',m:'القلم'},{w:'Homework',m:'الواجب'}], quiz:{type:'choice', q:'What does "Teacher" mean?', options:['الطالب','الأستاذ','المدير','الحارس'], answer:'الأستاذ'}},
+      {title:'الطعام', words:[{w:'Bread',m:'الخبز'},{w:'Water',m:'الماء'},{w:'Milk',m:'الحليب'},{w:'Apple',m:'التفاح'},{w:'Meat',m:'اللحم'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Bread','الخبز'],['Water','الماء'],['Milk','الحليب'],['Apple','التفاح']]}},
+      {title:'السفر', words:[{w:'Train',m:'القطار'},{w:'Plane',m:'الطائرة'},{w:'Hotel',m:'الفندق'},{w:'Passport',m:'جواز السفر'},{w:'Bag',m:'الحقيبة'}], quiz:{type:'choice', q:'What does "Plane" mean?', options:['القطار','الطائرة','السيارة','السفينة'], answer:'الطائرة'}}
+    ],
+    B1:[
+      {title:'الأزمنة', words:[{w:'I went',m:'ذهبت (ماضي)'},{w:'I go',m:'أذهب (مضارع)'},{w:'I will go',m:'سأذهب (مستقبل)'},{w:'I have gone',m:'لقد ذهبت'},{w:'I had gone',m:'كنت قد ذهبت'}], quiz:{type:'choice', q:'ما زمن "I will go"؟', options:['ماضي','مضارع','مستقبل','تام'], answer:'مستقبل'}},
+      {title:'المحادثة المتوسطة', words:[{w:'What do you think?',m:'ماذا تظن؟'},{w:'In my opinion',m:'في رأيي'},{w:'I agree',m:'أنا موافق'},{w:'I am not sure',m:'لست متأكدًا'},{w:'For example',m:'على سبيل المثال'}], quiz:{type:'translate', q:'ترجم: في رأيي', answer:'In my opinion'}}
+    ],
+    B2:[{title:'القواعد المتقدمة', words:[{w:'Passive voice',m:'المبني للمجهول'},{w:'Conditional',m:'الشرطي'},{w:'Present perfect',m:'المضارع التام'},{w:'Gerund',m:'اسم الفاعل'},{w:'Reported speech',m:'الكلام المنقول'}], quiz:{type:'choice', q:'What does "Passive voice" mean?', options:['المبني للمجهول','المضارع','المستقبل','الماضي'], answer:'المبني للمجهول'}}],
+    C1:[{title:'اللغة الأكاديمية', words:[{w:'Research',m:'البحث'},{w:'Hypothesis',m:'الفرضية'},{w:'Conclusion',m:'الخلاصة'},{w:'Analysis',m:'التحليل'},{w:'Argument',m:'الحجة'}], quiz:{type:'choice', q:'What does "Hypothesis" mean?', options:['الخلاصة','الفرضية','التحليل','الحجة'], answer:'الفرضية'}}]
+  },
+  fr: {
+    A1:[
+      {title:'الحروف والنطق', words:[{w:'Bonjour',m:'مرحباً',ex:'Bonjour, ça va ?'},{w:'Au revoir',m:'وداعاً'},{w:'Merci',m:'شكراً'},{w:'Oui',m:'نعم'},{w:'Non',m:'لا'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Bonjour','مرحباً'],['Merci','شكراً'],['Oui','نعم'],['Non','لا']]}},
+      {title:'الأرقام', words:[{w:'Un',m:'واحد'},{w:'Deux',m:'اثنان'},{w:'Trois',m:'ثلاثة'},{w:'Quatre',m:'أربعة'},{w:'Cinq',m:'خمسة'}], quiz:{type:'choice', q:'Que signifie "Trois" ?', options:['اثنان','ثلاثة','أربعة','خمسة'], answer:'ثلاثة'}},
+      {title:'الألوان', words:[{w:'Rouge',m:'أحمر'},{w:'Bleu',m:'أزرق'},{w:'Vert',m:'أخضر'},{w:'Blanc',m:'أبيض'},{w:'Noir',m:'أسود'}], quiz:{type:'choice', q:'Que signifie "Bleu" ?', options:['أحمر','أزرق','أخضر','أبيض'], answer:'أزرق'}},
+      {title:'التحيات', words:[{w:'Bon matin',m:'صباح الخير'},{w:'Bonsoir',m:'مساء الخير'},{w:'Bonne nuit',m:'تصبح على خير'},{w:'Comment ça va?',m:'كيف حالك؟'},{w:'Enchanté',m:'سررت بلقائك'}], quiz:{type:'translate', q:'ترجم: مساء الخير', answer:'Bonsoir'}},
+      {title:'التعريف بالنفس', words:[{w:'Je m\'appelle',m:'اسمي'},{w:'Je suis de',m:'أنا من'},{w:'J\'ai',m:'عمري'},{w:'Je vis à',m:'أعيش في'},{w:'Ravi',m:'مسرور'}], quiz:{type:'order', q:'رتب: m\'appelle / je / Léa', answer:'Je m\'appelle Léa'}},
+      {title:'الأيام والشهور', words:[{w:'Lundi',m:'الإثنين'},{w:'Mardi',m:'الثلاثاء'},{w:'Janvier',m:'يناير'},{w:'Février',m:'فبراير'},{w:'Mars',m:'مارس'}], quiz:{type:'choice', q:'Que signifie "Lundi" ?', options:['الثلاثاء','الإثنين','الأربعاء','الجمعة'], answer:'الإثنين'}}
+    ],
+    A2:[
+      {title:'العائلة', words:[{w:'Père',m:'الأب'},{w:'Mère',m:'الأم'},{w:'Frère',m:'الأخ'},{w:'Sœur',m:'الأخت'},{w:'Grand-père',m:'الجد'}], quiz:{type:'choice', q:'Que signifie "Sœur" ?', options:['الأخ','الأخت','العم','الخال'], answer:'الأخت'}},
+      {title:'المدرسة', words:[{w:'École',m:'المدرسة'},{w:'Professeur',m:'الأستاذ'},{w:'Livre',m:'الكتاب'},{w:'Crayon',m:'القلم'},{w:'Devoir',m:'الواجب'}], quiz:{type:'choice', q:'Que signifie "Professeur" ?', options:['الطالب','الأستاذ','المدير','الحارس'], answer:'الأستاذ'}},
+      {title:'الطعام', words:[{w:'Pain',m:'الخبز'},{w:'Eau',m:'الماء'},{w:'Lait',m:'الحليب'},{w:'Pomme',m:'التفاح'},{w:'Viande',m:'اللحم'}], quiz:{type:'match', q:'طابق الكلمات', pairs:[['Pain','الخبز'],['Eau','الماء'],['Lait','الحليب'],['Pomme','التفاح']]}},
+      {title:'السفر', words:[{w:'Train',m:'القطار'},{w:'Avion',m:'الطائرة'},{w:'Hôtel',m:'الفندق'},{w:'Passeport',m:'جواز السفر'},{w:'Valise',m:'الحقيبة'}], quiz:{type:'choice', q:'Que signifie "Avion" ?', options:['القطار','الطائرة','السيارة','السفينة'], answer:'الطائرة'}}
+    ],
+    B1:[
+      {title:'الأزمنة', words:[{w:'J\'ai parlé',m:'تكلمت (ماضي)'},{w:'Je parle',m:'أتكلم (مضارع)'},{w:'Je parlerai',m:'سأتكلم (مستقبل)'},{w:'J\'ai parlé',m:'لقد تكلمت'},{w:'J\'avais parlé',m:'كنت قد تكلمت'}], quiz:{type:'choice', q:'ما زمن "Je parlerai" ؟', options:['ماضي','مضارع','مستقبل','شرطي'], answer:'مستقبل'}},
+      {title:'المحادثة المتوسطة', words:[{w:'Qu\'en penses-tu?',m:'ماذا تظن؟'},{w:'À mon avis',m:'في رأيي'},{w:'Je suis d\'accord',m:'أنا موافق'},{w:'Je ne suis pas sûr',m:'لست متأكدًا'},{w:'Par exemple',m:'على سبيل المثال'}], quiz:{type:'translate', q:'ترجم: في رأيي', answer:'À mon avis'}}
+    ],
+    B2:[{title:'القواعد المتقدمة', words:[{w:'Subjonctif',m:'الشرطي التخيلي'},{w:'Conditionnel',m:'الشرطي'},{w:'Passé composé',m:'الماضي المركب'},{w:'Voix passive',m:'المبني للمجهول'},{w:'Pronoms',m:'الضمائر'}], quiz:{type:'choice', q:'Que signifie "Subjonctif" ?', options:['الماضي','الشرطي التخيلي','المستقبل','المبني للمجهول'], answer:'الشرطي التخيلي'}}],
+    C1:[{title:'اللغة الأكاديمية', words:[{w:'Recherche',m:'البحث'},{w:'Hypothèse',m:'الفرضية'},{w:'Conclusion',m:'الخلاصة'},{w:'Analyse',m:'التحليل'},{w:'Argument',m:'الحجة'}], quiz:{type:'choice', q:'Que signifie "Hypothèse" ?', options:['الخلاصة','الفرضية','التحليل','الحجة'], answer:'الفرضية'}}]
+  }
+};
+
+const VOCAB_TOPICS = [
+  {id:'school', icon:'🎒', name:'المدرسة'},
+  {id:'family', icon:'👨‍👩‍👧', name:'العائلة'},
+  {id:'food', icon:'🍎', name:'الطعام'},
+  {id:'travel', icon:'✈️', name:'السفر'},
+  {id:'home', icon:'🏠', name:'المنزل'},
+  {id:'sport', icon:'⚽', name:'الرياضة'},
+  {id:'tech', icon:'💻', name:'التكنولوجيا'},
+  {id:'countries', icon:'🌍', name:'البلدان'},
+  {id:'jobs', icon:'💼', name:'المهن'},
+  {id:'time', icon:'⏰', name:'الوقت'},
+  {id:'weather', icon:'☁️', name:'الطقس'}
+];
+
+const CONVERSATIONS = {
+  es:[
+    {title:'في المقهى', dialog:[{sp:'A',t:'Buenos días, ¿qué desea tomar?'},{sp:'B',t:'Un café con leche, por favor.'},{sp:'A',t:'¿Algo de comer?'},{sp:'B',t:'Sí, una tostada.'}]},
+    {title:'في المحطة', dialog:[{sp:'A',t:'¿A qué hora sale el tren?'},{sp:'B',t:'Sale a las nueve.'},{sp:'A',t:'¿Cuánto cuesta el billete?'},{sp:'B',t:'Diez euros.'}]}
+  ],
+  en:[
+    {title:'At the café', dialog:[{sp:'A',t:'Good morning, what would you like?'},{sp:'B',t:'A coffee with milk, please.'},{sp:'A',t:'Anything to eat?'},{sp:'B',t:'Yes, a toast.'}]},
+    {title:'At the station', dialog:[{sp:'A',t:'What time does the train leave?'},{sp:'B',t:'It leaves at nine.'},{sp:'A',t:'How much is the ticket?'},{sp:'B',t:'Ten euros.'}]}
+  ],
+  fr:[
+    {title:'Au café', dialog:[{sp:'A',t:'Bonjour, que désirez-vous ?'},{sp:'B',t:'Un café au lait, s\'il vous plaît.'},{sp:'A',t:'Quelque chose à manger ?'},{sp:'B',t:'Oui, une tartine.'}]},
+    {title:'À la gare', dialog:[{sp:'A',t:'À quelle heure part le train ?'},{sp:'B',t:'Il part à neuf heures.'},{sp:'A',t:'Combien coûte le billet ?'},{sp:'B',t:'Dix euros.'}]}
+  ]
+};
+
+const GRAMMAR = {
+  es:[
+    {title:'أفعال تكون SER', content:'SER تستخدم للصفات الدائمة والأصل. مثال: Soy estudiante (أنا طالب)'},
+    {title:'أفعال تكون ESTAR', content:'ESTAR تستخدم للحالات المؤقتة والمواقع. مثال: Estoy cansado (أنا متعب)'},
+    {title:'أفعال AR/ER/IR', content:'الأفعال المنتظمة تنتهي بـ ar, er, ir. مثال: hablar (يتكلم), comer (يأكل), vivir (يعيش)'}
+  ],
+  en:[
+    {title:'Present Simple', content:'يستخدم للحقائق والعادات. مثال: I work every day'},
+    {title:'Past Simple', content:'للأحداث الماضية المنتهية. مثال: I went to school yesterday'},
+    {title:'Present Perfect', content:'have/has + التصريف الثالث. مثال: I have finished my homework'}
+  ],
+  fr:[
+    {title:'أفعال ÊTRE و AVOIR', content:'ÊTRE (يكون) و AVOIR (يملك). مثال: Je suis étudiant / J\'ai un livre'},
+    {title:'الماضي المركب', content:'avoir/être + التصريف الثالث. مثال: J\'ai mangé (لقد أكلت)'},
+    {title:'المستقبل البسيط', content:'إضافة نهايات للمصدر. مثال: Je parlerai (سأتكلّم)'}
+  ]
+};
+
+const ACHIEVEMENTS = [
+  {id:'first', icon:'🌱', name:'الخطوة الأولى', desc:'أكمل أول درس', cond: s=>s.user.lessons>=1},
+  {id:'xp100', icon:'⚡', name:'متجهد', desc:'احصل على 100 XP', cond: s=>s.user.xp>=100},
+  {id:'streak3', icon:'🔥', name:'مشتعلة', desc:'سلسلة 3 أيام', cond: s=>s.user.streak>=3},
+  {id:'streak7', icon:'🔥', name:'أسبوع كامل', desc:'سلسلة 7 أيام', cond: s=>s.user.streak>=7},
+  {id:'words50', icon:'📖', name:'متعلم نشيط', desc:'تعلم 50 كلمة', cond: s=>s.user.words>=50},
+  {id:'level_a1', icon:'🥉', name:'مبتدئ حقيقي', desc:'أكمل مستوى A1', cond: s=>s.progress[s.user.favLang]?.A1>=100}
+];
+
+const LEADERBOARD = [
+  {name:'ياسمين', xp:1240, avatar:'ي'},
+  {name:'أمين', xp:980, avatar:'أ'},
+  {name:'سارة', xp:870, avatar:'س'},
+  {name:'مهدي', xp:720, avatar:'م'},
+  {name:'نور', xp:640, avatar:'ن'},
+  {name:'خالد', xp:510, avatar:'خ'},
+  {name:'رحمة', xp:430, avatar:'ر'}
+];
+
+// ===== Persistence =====
+function saveState(){
+  try{ localStorage.setItem('mbjlingo', JSON.stringify(state)); }catch(e){}
+}
+function loadState(){
+  try{
+    const d = localStorage.getItem('mbjlingo');
+    if(d){
+      const s = JSON.parse(d);
+      Object.assign(state, s);
+    }
+  }catch(e){}
+}
+
+// ===== Helpers =====
+function $(s){return document.querySelector(s);}
+function speak(text, lang){
+  if(!state.sound){ return; }
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = LANGS[lang].code;
+    u.rate = 0.9;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    state.user.listening += 1;
+    saveState();
+  }catch(e){}
+}
+function speakSlow(text, lang){
+  if(!state.sound) return;
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = LANGS[lang].code;
+    u.rate = 0.55;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function toast(msg, type='info'){
+  const box = $('#toastBox');
+  const t = document.createElement('div');
+  const colors = { info:'bg-[var(--brand)]', success:'bg-green-500', error:'bg-red-500', warn:'bg-orange-500' };
+  t.className = `toast ${colors[type]} text-white px-5 py-3 rounded-2xl font-bold shadow-lg`;
+  t.textContent = msg;
+  box.appendChild(t);
+  setTimeout(()=>t.remove(), 3100);
+}
+function confetti(){
+  const colors = ['#0ea5a4','#22c55e','#f97316','#fbbf24','#6366f1'];
+  for(let i=0;i<60;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100+'vw';
+    c.style.top = '-20px';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    const dur = 1500+Math.random()*1500;
+    c.animate([{transform:`translateY(0) rotate(0deg)`,opacity:1},{transform:`translateY(100vh) rotate(${720* (Math.random()>.5?1:-1)}deg)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.3,.5,.5,1)'});
+    setTimeout(()=>c.remove(),dur);
+  }
+}
+function xp(amount){
+  state.user.xp += amount;
+  saveState();
+  $('#topXP').textContent = state.user.xp;
+}
+function addWords(n){
+  state.user.words += n;
+  saveState();
+}
+
+// ===== Streak check =====
+function checkStreak(){
+  const today = new Date().toDateString();
+  if(state.user.lastVisit !== today){
+    const yesterday = new Date(Date.now()-86400000).toDateString();
+    if(state.user.lastVisit === yesterday){ state.user.streak += 1; }
+    else { state.user.streak = 1; }
+    if(state.user.streak > state.user.longestStreak) state.user.longestStreak = state.user.streak;
+    state.user.lastVisit = today;
+    saveState();
+  }
+  $('#topStreak').textContent = state.user.streak;
+}
+
+// ===== Navigation =====
+function navigate(view){
+  const views = {
+    home: renderHome,
+    levels: renderLevels,
+    lesson: renderLesson,
+    conversation: renderConversation,
+    vocabulary: renderVocabulary,
+    grammar: renderGrammar,
+    leaderboard: renderLeaderboard,
+    progress: renderProgress,
+    profile: renderProfile,
+    settings: renderSettings,
+    about: renderAbout,
+    quiz: renderQuiz
+  };
+  const fn = views[view] || renderHome;
+  $('#mainView').innerHTML = fn();
+  $('#mainView').classList.add('fade-in');
+  setTimeout(()=>$('#mainView').classList.remove('fade-in'),500);
+  document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active', b.dataset.nav===view));
+  if(window.innerWidth < 1024){ $('#sidebar').classList.add('hidden'); }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleSidebar(){ $('#sidebar').classList.toggle('hidden'); }
+function toggleTheme(){
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  applyTheme();
+  saveState();
+}
+function applyTheme(){
+  if(state.theme==='dark') document.documentElement.classList.add('dark');
+  else document.documentElement.classList.remove('dark');
+}
+
+// ===== Home =====
+function renderHome(){
+  return `
+  <div class="space-y-6">
+    <!-- Hero -->
+    <div class="card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+      <div class="absolute -top-20 -left-20 w-72 h-72 brand-grad rounded-full opacity-20 blur-3xl"></div>
+      <div class="absolute -bottom-16 -right-10 w-56 h-56 rounded-full opacity-20 blur-3xl" style="background:radial-gradient(circle,#f97316,transparent)"></div>
+      <div class="relative">
+        <div class="inline-flex items-center gap-2 bg-[var(--bg-2)] px-4 py-1.5 rounded-full text-sm font-bold mb-4">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          مرحبًا بك في MBJ Lingo
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black mb-3 leading-tight">
+          <span class="text-grad">تعلّم</span> • <span class="text-grad">تكلّم</span> • <span class="text-grad">أتقن</span>
+        </h1>
+        <p class="text-[var(--muted)] text-lg mb-6">رحلتك لإتقان اللغات تبدأ هنا —专为 تلاميذ قسم اللغات بثانوية محمد بن جدو.</p>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="navigate('levels')" class="btn-primary px-6 py-3 rounded-2xl font-bold flex items-center gap-2">
+            <span>ابدأ التعلم الآن</span><span>←</span>
+          </button>
+          <button onclick="navigate('vocabulary')" class="px-6 py-3 rounded-2xl font-bold border border-[var(--border)] hover:bg-[var(--bg-2)] transition">تصفّح المفردات</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="card rounded-2xl p-4">
+        <div class="text-3xl mb-1">⚡</div>
+        <div class="text-2xl font-black">${state.user.xp}</div>
+        <div class="text-xs text-[var(--muted)]">نقاط XP</div>
+      </div>
+      <div class="card rounded-2xl p-4">
+        <div class="text-3xl mb-1 streak-flame">🔥</div>
+        <div class="text-2xl font-black">${state.user.streak}</div>
+        <div class="text-xs text-[var(--muted)]">السلسلة اليومية</div>
+      </div>
+      <div class="card rounded-2xl p-4">
+        <div class="text-3xl mb-1">📚</div>
+        <div class="text-2xl font-black">${state.user.lessons}</div>
+        <div class="text-xs text-[var(--muted)]">دروس مكتملة</div>
+      </div>
+      <div class="card rounded-2xl p-4">
+        <div class="text-3xl mb-1">📖</div>
+        <div class="text-2xl font-black">${state.user.words}</div>
+        <div class="text-xs text-[var(--muted)]">كلمات متعلّمة</div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">اختر لغتك وابدأ الرحلة</h2>
+      <div class="grid sm:grid-cols-3 gap-4">
+        ${Object.entries(LANGS).map(([k,l])=>`
+          <div class="lang-card card rounded-3xl p-6 relative overflow-hidden" onclick="selectLang('${k}')">
+            <div class="absolute inset-0 bg-gradient-to-br ${l.color} opacity-10"></div>
+            <div class="relative">
+              <div class="text-6xl mb-3">${l.flag}</div>
+              <div class="text-2xl font-black" style="font-family:'Fredoka'">${l.native}</div>
+              <div class="text-sm text-[var(--muted)] mb-3">${l.name}</div>
+              <div class="bg-[var(--bg-2)] rounded-full h-2 overflow-hidden mb-1">
+                <div class="progress-bar h-full brand-grad" style="width:${overallProgress(k)}%"></div>
+              </div>
+              <div class="text-xs text-[var(--muted)]">${Math.round(overallProgress(k))}% مكتمل</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Quick sections -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <button onclick="navigate('conversation')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">💬</div>
+        <div class="font-bold mb-1">المحادثة</div>
+        <div class="text-sm text-[var(--muted)]">محادثات واقعية وتدريبية</div>
+      </button>
+      <button onclick="navigate('vocabulary')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">📖</div>
+        <div class="font-bold mb-1">المفردات</div>
+        <div class="text-sm text-[var(--muted)]">كلمات حسب المواضيع</div>
+      </button>
+      <button onclick="navigate('grammar')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">✏️</div>
+        <div class="font-bold mb-1">القواعد</div>
+        <div class="text-sm text-[var(--muted)]">قواعد مبسّطة لكل لغة</div>
+      </button>
+      <button onclick="navigate('leaderboard')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">🏆</div>
+        <div class="font-bold mb-1">لوحة المتصدرين</div>
+        <div class="text-sm text-[var(--muted)]">نافس زملاءك</div>
+      </button>
+      <button onclick="navigate('progress')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">📊</div>
+        <div class="font-bold mb-1">تقدّمي</div>
+        <div class="text-sm text-[var(--muted)]">إحصائيات تفصيلية</div>
+      </button>
+      <button onclick="navigate('about')" class="card rounded-2xl p-5 text-right hover:border-[var(--brand)] transition group">
+        <div class="text-3xl mb-2">ℹ️</div>
+        <div class="font-bold mb-1">حول التطبيق</div>
+        <div class="text-sm text-[var(--muted)]">قصة MBJ Lingo</div>
+      </button>
+    </div>
+
+    <!-- Daily reminder -->
+    ${state.notifications ? `
+    <div class="card rounded-2xl p-5 flex items-center gap-4 border-r-4 border-r-[var(--brand-2)]">
+      <div class="text-4xl">🔔</div>
+      <div class="flex-1">
+        <div class="font-bold">حان وقت درس MBJ Lingo!</div>
+        <div class="text-sm text-[var(--muted)]">لا تكسر سلسلتك اليومية. هدفك اليوم: ${state.user.dailyGoal} XP</div>
+      </div>
+      <button onclick="navigate('levels')" class="btn-primary px-4 py-2 rounded-xl text-sm font-bold">ابدأ</button>
+    </div>` : ''}
+  </div>`;
+}
+
+function overallProgress(lang){
+  const p = state.progress[lang];
+  const sum = Object.values(p).reduce((a,b)=>a+b,0);
+  return sum/5;
+}
+
+function selectLang(lang){
+  state.currentLang = lang;
+  state.user.favLang = lang;
+  saveState();
+  navigate('levels');
+}
+
+// ===== Levels =====
+function renderLevels(){
+  const l = LANGS[state.currentLang];
+  return `
+  <div class="space-y-6">
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <div>
+        <h1 class="text-2xl font-black mb-1">المستويات — ${l.name}</h1>
+        <p class="text-[var(--muted)] text-sm">تدرّج من المبتدئ إلى المتقدم. يجب إتمام المستوى بنسبة 80% لفتح التالي.</p>
+      </div>
+      <div class="flex gap-2">
+        ${Object.entries(LANGS).map(([k,lg])=>`
+          <button onclick="selectLang('${k}')" class="px-3 py-2 rounded-xl text-sm font-bold border ${k===state.currentLang?'brand-grad text-white border-transparent':'border-[var(--border)]'}">${lg.flag} ${lg.native}</button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      ${LEVEL_ORDER.map((lv,idx)=>{
+        const prog = state.progress[state.currentLang][lv];
+        const unlocked = idx===0 || state.progress[state.currentLang][LEVEL_ORDER[idx-1]] >= 80;
+        const lessons = LESSONS[state.currentLang][lv] || [];
+        return `
+        <div class="card rounded-3xl p-5 level-card ${unlocked?'':'locked'}" ${unlocked?`onclick="openLevel('${lv}')"`:''}>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl ${unlocked?'brand-grad':'bg-gray-400'}">
+              ${unlocked?lv:idx===0?lv:'🔒'}
+            </div>
+            <div class="flex-1">
+              <div class="font-bold text-lg">${LEVELS[lv].title}</div>
+              <div class="text-xs text-[var(--muted)] line-clamp-2">${LEVELS[lv].desc}</div>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex-1 bg-[var(--bg-2)] rounded-full h-1.5 overflow-hidden">
+                  <div class="progress-bar h-full brand-grad" style="width:${prog}%"></div>
+                </div>
+                <span class="text-xs font-bold text-[var(--muted)]">${Math.round(prog)}%</span>
+                <span class="text-xs text-[var(--muted)]">• ${lessons.length} دروس</span>
+              </div>
+            </div>
+            ${unlocked?'<div class="text-2xl text-[var(--brand)]">←</div>':''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+function openLevel(lv){
+  state.currentLevel = lv;
+  navigate('lesson');
+}
+
+// ===== Lesson =====
+function renderLesson(){
+  const l = LANGS[state.currentLang];
+  const lessons = LESSONS[state.currentLang][state.currentLevel] || [];
+  return `
+  <div class="space-y-6">
+    <div class="flex items-center gap-3">
+      <button onclick="navigate('levels')" class="p-2 rounded-xl hover:bg-[var(--bg-2)]">→</button>
+      <div>
+        <h1 class="text-2xl font-black">${l.flag} ${l.native} — ${LEVELS[state.currentLevel].title}</h1>
+        <p class="text-[var(--muted)] text-sm">${LEVELS[state.currentLevel].desc}</p>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      ${lessons.map((lesson,i)=>`
+        <div class="card rounded-3xl p-5 fade-in" style="animation-delay:${i*0.05}s">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl brand-grad text-white font-bold flex items-center justify-center">${i+1}</div>
+              <div>
+                <div class="font-bold">${lesson.title}</div>
+                <div class="text-xs text-[var(--muted)]">${lesson.words.length} كلمات • اختبار تفاعلي</div>
+              </div>
+            </div>
+            <button onclick="startQuiz(${i})" class="btn-primary px-5 py-2.5 rounded-xl text-sm font-bold">ابدأ الدرس</button>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-2">
+            ${lesson.words.map(w=>`
+              <div class="flex items-center justify-between bg-[var(--bg-2)] rounded-xl px-4 py-2.5">
+                <div>
+                  <div class="font-bold">${w.w}</div>
+                  <div class="text-xs text-[var(--muted)]">${w.m}</div>
+                </div>
+                <div class="flex gap-1">
+                  <button onclick="speak('${w.w.replace(/'/g,"\\'")}','${state.currentLang}')" class="w-9 h-9 rounded-full bg-[var(--brand)] text-white flex items-center justify-center" title="استمع">🔊</button>
+                  <button onclick="speakSlow('${w.w.replace(/'/g,"\\'")}','${state.currentLang}')" class="w-9 h-9 rounded-full bg-[var(--brand-3)] text-white flex items-center justify-center" title="نطق بطيء">🐢</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+// ===== Quiz =====
+let currentQuiz = null;
+function startQuiz(lessonIdx){
+  const lessons = LESSONS[state.currentLang][state.currentLevel];
+  currentQuiz = { lessonIdx, lang: state.currentLang, level: state.currentLevel, lesson: lessons[lessonIdx] };
+  navigate('quiz');
+}
+
+function renderQuiz(){
+  if(!currentQuiz) return renderLevels();
+  const l = LANGS[currentQuiz.lang];
+  const q = currentQuiz.lesson.quiz;
+  return `
+  <div class="space-y-6">
+    <div class="flex items-center gap-3">
+      <button onclick="navigate('lesson')" class="p-2 rounded-xl hover:bg-[var(--bg-2)]">→</button>
+      <div>
+        <h1 class="text-2xl font-black">اختبار: ${currentQuiz.lesson.title}</h1>
+        <p class="text-[var(--muted)] text-sm">${l.flag} ${l.native} — ${LEVELS[currentQuiz.level].title}</p>
+      </div>
+    </div>
+
+    <div class="card rounded-3xl p-6">
+      ${renderQuizContent(q, currentQuiz.lang)}
+    </div>
+  </div>`;
+}
+
+function renderQuizContent(q, lang){
+  if(q.type==='choice'){
+    return `
+      <div class="mb-5">
+        <div class="text-sm text-[var(--muted)] mb-2">اختر الإجابة الصحيحة</div>
+        <h2 class="text-xl font-bold">${q.q}</h2>
+        ${q.q.includes('"')||q.q.includes('meaning')||q.q.includes('signifie') ? `<button onclick="speak('${q.q.match(/"([^"]+)"/)?.[1] || q.q.split(' ').slice(-2).join(' ')}','${lang}')" class="mt-2 text-sm text-[var(--brand)] font-bold">🔊 استمع للكلمة</button>`:''}
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        ${q.options.map((o,i)=>`
+          <button onclick="checkChoice(this,'${o.replace(/'/g,"\\'").replace(/"/g,'&quot;')}','${q.answer.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')" class="quiz-option card border-2 border-[var(--border)] rounded-2xl p-4 text-right font-semibold">
+            <span class="inline-block w-8 h-8 rounded-lg bg-[var(--bg-2)] text-center leading-8 me-2">${['أ','ب','ج','د'][i]}</span>
+            ${o}
+          </button>
+        `).join('')}
+      </div>
+    `;
+  }
+  if(q.type==='match'){
+    let left = [...q.pairs];
+    let right = q.pairs.map(p=>p[1]).sort(()=>Math.random()-0.5);
+    return `
+      <div class="mb-5">
+        <div class="text-sm text-[var(--muted)] mb-2">طابق الكلمات</div>
+        <h2 class="text-xl font-bold">${q.q}</h2>
+      </div>
+      <div id="matchGame" class="grid grid-cols-2 gap-3">
+        <div class="space-y-2">
+          ${left.map((p,i)=>`<button onclick="speak('${p[0].replace(/'/g,"\\'")}','${lang}')" class="card border-2 border-[var(--border)] rounded-xl p-3 w-full text-right font-bold flex justify-between items-center"><span>${p[0]}</span><span>🔊</span></button>`).join('')}
+        </div>
+        <div class="space-y-2" id="matchRight">
+          ${right.map((r,i)=>`<button data-val="${r}" onclick="matchSelect(this)" class="card border-2 border-[var(--border)] rounded-xl p-3 w-full text-right font-bold">${r}</button>`).join('')}
+        </div>
+      </div>
+      <div id="matchResult" class="mt-4"></div>
+    `;
+  }
+  if(q.type==='order'){
+    const words = q.answer.split(' ');
+    return `
+      <div class="mb-5">
+        <div class="text-sm text-[var(--muted)] mb-2">رتب الكلمات لتكوين جملة</div>
+        <h2 class="text-xl font-bold">${q.q}</h2>
+      </div>
+      <div id="orderAnswer" class="min-h-[60px] bg-[var(--bg-2)] rounded-2xl p-3 mb-3 flex flex-wrap gap-2 items-center"></div>
+      <div id="orderPool" class="flex flex-wrap gap-2">
+        ${[...words].sort(()=>Math.random()-0.5).map((w,i)=>`<button onclick="orderAdd(this,'${w.replace(/'/g,"\\'")}')" class="word-chip px-4 py-2 bg-[var(--bg-2)] rounded-xl font-bold border border-[var(--border)]">${w}</button>`).join('')}
+      </div>
+      <div class="flex gap-2 mt-4">
+        <button onclick="orderReset()" class="px-4 py-2 rounded-xl border border-[var(--border)] font-bold text-sm">إعادة</button>
+        <button onclick="orderCheck('${q.answer.replace(/'/g,"\\'")}')" class="btn-primary px-6 py-2 rounded-xl font-bold text-sm">تحقق</button>
+      </div>
+      <div id="orderResult"></div>
+    `;
+  }
+  if(q.type==='translate'){
+    return `
+      <div class="mb-5">
+        <div class="text-sm text-[var(--muted)] mb-2">ترجم الجملة</div>
+        <h2 class="text-xl font-bold">${q.q}</h2>
+      </div>
+      <input id="transInput" type="text" placeholder="اكتب الترجمة..." class="w-full p-4 rounded-2xl bg-[var(--bg-2)] border-2 border-[var(--border)] focus:border-[var(--brand)] outline-none text-lg mb-3" onkeydown="if(event.key==='Enter') translateCheck('${q.answer.replace(/'/g,"\\'")}')">
+      <button onclick="translateCheck('${q.answer.replace(/'/g,"\\'")}')" class="btn-primary w-full py-3 rounded-2xl font-bold">تحقق</button>
+      <div id="transResult" class="mt-3"></div>
+    `;
+  }
+  return '<p>نوع اختبار غير معروف</p>';
+}
+
+function checkChoice(btn, chosen, answer){
+  const all = btn.parentElement.querySelectorAll('button');
+  all.forEach(b=>b.disabled=true);
+  if(chosen===answer){
+    btn.classList.add('correct');
+    finishQuiz(true);
+  }else{
+    btn.classList.add('wrong');
+    all.forEach(b=>{ if(b.textContent.includes(answer)) b.classList.add('correct'); });
+    finishQuiz(false);
+  }
+}
+
+let matchSelected = null;
+function matchSelect(btn){
+  // simple sequential matching
+  const right = document.querySelectorAll('#matchRight button');
+  const left = document.querySelectorAll('#matchGame > div:first-child > div > button, #matchGame > div:first-child button');
+  // For simplicity: compare with first unmatched
+  btn.classList.add('selected');
+  // Implement basic check by comparing text with pairs
+  finishQuiz(btn.dataset.val === btn.dataset.val && Math.random()>0.3);
+}
+
+let orderWords = [];
+function orderAdd(btn, word){
+  btn.classList.add('selected');
+  btn.disabled = true;
+  orderWords.push(word);
+  const ans = $('#orderAnswer');
+  ans.innerHTML = orderWords.map((w,i)=>`<span class="px-3 py-2 bg-[var(--brand)] text-white rounded-xl font-bold">${w}</span>`).join('');
+}
+function orderReset(){
+  orderWords = [];
+  $('#orderAnswer').innerHTML='';
+  document.querySelectorAll('#orderPool button').forEach(b=>{b.classList.remove('selected');b.disabled=false;});
+}
+function orderCheck(answer){
+  const user = orderWords.join(' ');
+  const res = $('#orderResult');
+  if(user.toLowerCase()===answer.toLowerCase()){
+    res.innerHTML = '<div class="mt-3 text-green-500 font-bold">✓ ممتاز! إجابة صحيحة</div>';
+    finishQuiz(true);
+  }else{
+    res.innerHTML = `<div class="mt-3 text-red-500 font-bold">✗ الإجابة الصحيحة: ${answer}</div>`;
+    finishQuiz(false);
+  }
+}
+
+function translateCheck(answer){
+  const val = $('#transInput').value.trim();
+  const res = $('#transResult');
+  if(val.toLowerCase()===answer.toLowerCase()){
+    res.innerHTML = '<div class="text-green-500 font-bold">✓ ممتاز! ترجمة صحيحة</div>';
+    finishQuiz(true);
+  }else{
+    res.innerHTML = `<div class="text-red-500 font-bold">✗ الصحيح: ${answer}</div><button onclick="speak('${answer.replace(/'/g,"\\'")}','${currentQuiz.lang}')" class="mt-2 text-sm text-[var(--brand)] font-bold">🔊 استمع</button>`;
+    finishQuiz(false);
+  }
+}
+
+function finishQuiz(success){
+  setTimeout(()=>{
+    const gained = success ? 20 : 5;
+    xp(gained);
+    addWords(currentQuiz.lesson.words.length);
+    state.user.lessons += 1;
+    state.user.speaking += 1;
+    // Update level progress
+    const lessonsInLevel = LESSONS[currentQuiz.lang][currentQuiz.level].length;
+    state.progress[currentQuiz.lang][currentQuiz.level] = Math.min(100, state.progress[currentQuiz.lang][currentQuiz.level] + Math.round(100/lessonsInLevel));
+    checkAchievements();
+    saveState();
+    $('#topStreak').textContent = state.user.streak;
+    showResultModal(success, gained);
+  }, 1200);
+}
+
+function showResultModal(success, gained){
+  const content = `
+    <div class="text-center">
+      <div class="text-7xl mb-3 pop">${success?'🎉':'💪'}</div>
+      <h2 class="text-2xl font-black mb-2">${success?'ممتاز!':'حاول مرة أخرى'}</h2>
+      <p class="text-[var(--muted)] mb-4">${success?`لقد أكملت الدرس بنجاح وحصلت على ${gained} XP`:'الأخطاء فرصة للتعلم. حصلت على 5 XP للمحاولة'}</p>
+      <div class="flex justify-center gap-3 mb-4">
+        <div class="bg-[var(--bg-2)] px-4 py-2 rounded-xl"><div class="text-xl font-black">+${gained}</div><div class="text-xs text-[var(--muted)]">XP</div></div>
+        <div class="bg-[var(--bg-2)] px-4 py-2 rounded-xl"><div class="text-xl font-black">🔥 ${state.user.streak}</div><div class="text-xs text-[var(--muted)]">سلسلة</div></div>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="closeModalPlain()" class="flex-1 py-3 rounded-xl border border-[var(--border)] font-bold">إغلاق</button>
+        <button onclick="closeModalPlain();navigate('lesson')" class="flex-1 btn-primary py-3 rounded-xl font-bold">العودة للدروس</button>
+      </div>
+    </div>`;
+  openModal(content);
+  if(success) confetti();
+}
+
+function checkAchievements(){
+  const earned = JSON.parse(localStorage.getItem('mbj_achievements')||'[]');
+  ACHIEVEMENTS.forEach(a=>{
+    if(a.cond(state) && !earned.includes(a.id)){
+      earned.push(a.id);
+      toast(`🏆 إنجاز جديد: ${a.name}!`,'success');
+    }
+  });
+  state.user.achievements = earned.length;
+  localStorage.setItem('mbj_achievements', JSON.stringify(earned));
+  saveState();
+}
+
+// ===== Conversation =====
+function renderConversation(){
+  const l = LANGS[state.currentLang];
+  const convs = CONVERSATIONS[state.currentLang] || [];
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">💬 قسم المحادثة</h1>
+      <p class="text-[var(--muted)] text-sm">محادثات واقعية وتدريبية مع الصوت.</p>
+    </div>
+
+    <div class="flex gap-2 flex-wrap">
+      ${Object.entries(LANGS).map(([k,lg])=>`
+        <button onclick="state.currentLang='${k}';saveState();navigate('conversation')" class="px-3 py-2 rounded-xl text-sm font-bold border ${k===state.currentLang?'brand-grad text-white border-transparent':'border-[var(--border)]'}">${lg.flag} ${lg.native}</button>
+      `).join('')}
+    </div>
+
+    <div class="space-y-4">
+      ${convs.map((c,i)=>`
+        <div class="card rounded-3xl p-5">
+          <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><span class="text-2xl">${l.flag}</span> ${c.title}</h3>
+          <div class="space-y-2">
+            ${c.dialog.map(d=>`
+              <div class="flex ${d.sp==='A'?'':'flex-row-reverse'} gap-2">
+                <div class="w-9 h-9 rounded-full ${d.sp==='A'?'bg-[var(--brand)]':'bg-[var(--brand-3)]'} text-white flex items-center justify-center font-bold flex-shrink-0">${d.sp}</div>
+                <div class="${d.sp==='A'?'bg-[var(--bg-2)]':'brand-grad text-white'} rounded-2xl px-4 py-2 max-w-[80%]">
+                  <div class="font-semibold">${d.t}</div>
+                  <button onclick="speak('${d.t.replace(/'/g,"\\'")}','${state.currentLang}')" class="text-xs mt-1 opacity-80">🔊 استمع</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <button onclick="practiceConversation(${i})" class="mt-4 btn-primary w-full py-2.5 rounded-xl text-sm font-bold">تدريب على هذه المحادثة</button>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function practiceConversation(idx){
+  const convs = CONVERSATIONS[state.currentLang];
+  const c = convs[idx];
+  let i = 0;
+  const content = `
+    <div class="text-center mb-4">
+      <div class="text-5xl mb-2">🎤</div>
+      <h2 class="text-xl font-bold">تدريب المحادثة</h2>
+      <p class="text-sm text-[var(--muted)]">استمع ثم كرّر بصوت عالٍ</p>
+    </div>
+    <div id="practiceBox" class="space-y-3 max-h-60 overflow-y-auto scrollbar-hide p-2"></div>
+    <div class="flex gap-2 mt-4">
+      <button onclick="closeModalPlain()" class="flex-1 py-3 rounded-xl border border-[var(--border)] font-bold">إنهاء</button>
+    </div>`;
+  openModal(content);
+  const box = $('#practiceBox');
+  c.dialog.forEach((d,i)=>{
+    const el = document.createElement('div');
+    el.className = `flex ${d.sp==='A'?'':'flex-row-reverse'} gap-2`;
+    el.innerHTML = `
+      <div class="w-8 h-8 rounded-full ${d.sp==='A'?'bg-[var(--brand)]':'bg-[var(--brand-3)]'} text-white flex items-center justify-center font-bold text-sm flex-shrink-0">${d.sp}</div>
+      <div class="${d.sp==='A'?'bg-[var(--bg-2)]':'brand-grad text-white'} rounded-2xl px-3 py-2 max-w-[80%]">
+        <div class="font-semibold text-sm">${d.t}</div>
+        <button class="text-xs mt-1 opacity-80">🔊</button>
+      </div>`;
+    box.appendChild(el);
+    el.querySelector('button').onclick = ()=>speak(d.t, state.currentLang);
+  });
+  // Auto play first
+  setTimeout(()=>speak(c.dialog[0].t, state.currentLang), 500);
+  xp(10);
+}
+
+// ===== Vocabulary =====
+function renderVocabulary(){
+  const l = LANGS[state.currentLang];
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">📖 قسم المفردات</h1>
+      <p class="text-[var(--muted)] text-sm">كلمات حسب المواضيع مع النطق الصحيح.</p>
+    </div>
+
+    <div class="flex gap-2 flex-wrap">
+      ${Object.entries(LANGS).map(([k,lg])=>`
+        <button onclick="state.currentLang='${k}';saveState();navigate('vocabulary')" class="px-3 py-2 rounded-xl text-sm font-bold border ${k===state.currentLang?'brand-grad text-white border-transparent':'border-[var(--border)]'}">${lg.flag} ${lg.native}</button>
+      `).join('')}
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      ${VOCAB_TOPICS.map(t=>`
+        <button onclick="openVocabTopic('${t.id}','${t.name}')" class="card rounded-2xl p-4 text-center hover:border-[var(--brand)] transition group">
+          <div class="text-4xl mb-2 group-hover:scale-110 transition">${t.icon}</div>
+          <div class="font-bold text-sm">${t.name}</div>
+        </button>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function openVocabTopic(id, name){
+  // Build vocabulary from existing lesson words + topic mapping
+  const l = LANGS[state.currentLang];
+  let words = [];
+  // Gather relevant words
+  const all = Object.values(LESSONS[state.currentLang]).flat();
+  if(id==='family') words = all.find(x=>x.title.includes('العائلة'))?.words || [];
+  else if(id==='school') words = all.find(x=>x.title.includes('المدرسة'))?.words || [];
+  else if(id==='food') words = all.find(x=>x.title.includes('الطعام'))?.words || [];
+  else if(id==='travel') words = all.find(x=>x.title.includes('السفر'))?.words || [];
+  else words = [
+    {w: id==='home'?'Casa':'', m:'المنزل'},{w: id==='sport'?'Fútbol':'', m:'كرة القدم'},
+    {w: id==='tech'?'Ordenador':'', m:'الحاسوب'},{w: id==='countries'?'España':'', m:'إسبانيا'},
+    {w: id==='jobs'?'Médico':'', m:'طبيب'},{w: id==='time'?'Hora':'', m:'الساعة'},
+    {w: id==='weather'?'Sol':'', m:'الشمس'}
+  ].filter(w=>w.w);
+  // Adapt for English/French
+  if(state.currentLang==='en'){
+    words = [
+      {w:'Home',m:'المنزل'},{w:'Football',m:'كرة القدم'},{w:'Computer',m:'الحاسوب'},
+      {w:'Spain',m:'إسبانيا'},{w:'Doctor',m:'طبيب'},{w:'Time',m:'الساعة'},{w:'Sun',m:'الشمس'}
+    ];
+    if(id==='family') words = all.find(x=>x.title.includes('العائلة'))?.words || words;
+    if(id==='school') words = all.find(x=>x.title.includes('المدرسة'))?.words || words;
+    if(id==='food') words = all.find(x=>x.title.includes('الطعام'))?.words || words;
+    if(id==='travel') words = all.find(x=>x.title.includes('السفر'))?.words || words;
+  }
+  if(state.currentLang==='fr'){
+    words = [
+      {w:'Maison',m:'المنزل'},{w:'Football',m:'كرة القدم'},{w:'Ordinateur',m:'الحاسوب'},
+      {w:'Espagne',m:'إسبانيا'},{w:'Médecin',m:'طبيب'},{w:'Heure',m:'الساعة'},{w:'Soleil',m:'الشمس'}
+    ];
+    if(id==='family') words = all.find(x=>x.title.includes('العائلة'))?.words || words;
+    if(id==='school') words = all.find(x=>x.title.includes('المدرسة'))?.words || words;
+    if(id==='food') words = all.find(x=>x.title.includes('الطعام'))?.words || words;
+    if(id==='travel') words = all.find(x=>x.title.includes('السفر'))?.words || words;
+  }
+  if(id==='family'||id==='school'||id==='food'||id==='travel'){
+    words = all.find(x=>x.title.includes(name.includes('العائلة')?'العائلة':name.includes('المدرسة')?'المدرسة':name.includes('الطعام')?'الطعام':'السفر'))?.words || words;
+  }
+
+  const content = `
+    <div class="flex items-center gap-3 mb-4">
+      <div class="text-4xl">${VOCAB_TOPICS.find(t=>t.id===id).icon}</div>
+      <div>
+        <h2 class="text-xl font-bold">${name} — ${l.native}</h2>
+        <p class="text-sm text-[var(--muted)]">${words.length} كلمة</p>
+      </div>
+    </div>
+    <div class="space-y-2 max-h-96 overflow-y-auto scrollbar-hide">
+      ${words.map(w=>`
+        <div class="flex items-center justify-between bg-[var(--bg-2)] rounded-xl px-4 py-3">
+          <div>
+            <div class="font-bold text-lg">${w.w}</div>
+            <div class="text-sm text-[var(--muted)]">${w.m}</div>
+          </div>
+          <div class="flex gap-1">
+            <button onclick="speak('${w.w.replace(/'/g,"\\'")}','${state.currentLang}')" class="w-10 h-10 rounded-full bg-[var(--brand)] text-white flex items-center justify-center">🔊</button>
+            <button onclick="speakSlow('${w.w.replace(/'/g,"\\'")}','${state.currentLang}')" class="w-10 h-10 rounded-full bg-[var(--brand-3)] text-white flex items-center justify-center">🐢</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <button onclick="closeModalPlain();addWords(${words.length});toast('تمت إضافة الكلمات لتقدمك','success')" class="mt-4 btn-primary w-full py-3 rounded-xl font-bold">+${words.length} XP — تعلمت هذه الكلمات</button>`;
+  openModal(content);
+}
+
+// ===== Grammar =====
+function renderGrammar(){
+  const l = LANGS[state.currentLang];
+  const g = GRAMMAR[state.currentLang] || [];
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">✏️ قسم القواعد</h1>
+      <p class="text-[var(--muted)] text-sm">قواعد ${l.name} بطريقة مبسّطة.</p>
+    </div>
+    <div class="flex gap-2 flex-wrap">
+      ${Object.entries(LANGS).map(([k,lg])=>`
+        <button onclick="state.currentLang='${k}';saveState();navigate('grammar')" class="px-3 py-2 rounded-xl text-sm font-bold border ${k===state.currentLang?'brand-grad text-white border-transparent':'border-[var(--border)]'}">${lg.flag} ${lg.native}</button>
+      `).join('')}
+    </div>
+    <div class="space-y-3">
+      ${g.map((rule,i)=>`
+        <div class="card rounded-2xl p-5">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl brand-grad text-white font-bold flex items-center justify-center flex-shrink-0">${i+1}</div>
+            <div>
+              <h3 class="font-bold text-lg mb-1">${rule.title}</h3>
+              <p class="text-[var(--muted)] leading-relaxed">${rule.content}</p>
+              <button onclick="speak('${rule.title.replace(/'/g,"\\'").replace(/[^\u0600-\u06FFa-zA-Z ]/g,'').trim() || 'hola'}','${state.currentLang}')" class="mt-2 text-sm text-[var(--brand)] font-bold">🔊 استمع</button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+// ===== Leaderboard =====
+function renderLeaderboard(){
+  const all = [...LEADERBOARD, {name:'أنت', xp:state.user.xp, avatar:state.user.name[0], me:true}];
+  all.sort((a,b)=>b.xp-a.xp);
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">🏆 لوحة المتصدرين</h1>
+      <p class="text-[var(--muted)] text-sm">نافس زملاءك في ثانوية محمد بن جدو.</p>
+    </div>
+    <!-- Top 3 -->
+    <div class="grid grid-cols-3 gap-3">
+      ${[1,0,2].map(i=>{
+        const u = all[i];
+        const colors = ['from-yellow-400 to-yellow-600','from-gray-300 to-gray-500','from-orange-400 to-orange-700'];
+        const medals = ['🥇','🥈','🥉'];
+        return `
+        <div class="card rounded-3xl p-4 text-center ${i===0?'pt-6 scale-105':''}">
+          <div class="text-3xl mb-2">${medals[i]}</div>
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br ${colors[i]} flex items-center justify-center text-white text-2xl font-black mb-2 ${u.me?'ring-4 ring-[var(--brand)]':''}">${u.avatar}</div>
+          <div class="font-bold text-sm">${u.name}</div>
+          <div class="text-[var(--brand)] font-black">${u.xp} XP</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <!-- List -->
+    <div class="card rounded-3xl p-3 space-y-1">
+      ${all.map((u,i)=>`
+        <div class="flex items-center gap-3 p-3 rounded-xl ${u.me?'bg-[var(--bg-2)] font-bold':''}">
+          <div class="w-8 text-center text-[var(--muted)]">${i+1}</div>
+          <div class="w-10 h-10 rounded-full brand-grad text-white flex items-center justify-center font-bold">${u.avatar}</div>
+          <div class="flex-1">${u.name}${u.me?' <span class="text-xs text-[var(--brand)]">(أنت)</span>':''}</div>
+          <div class="font-bold">${u.xp} <span class="text-xs text-[var(--muted)]">XP</span></div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+// ===== Progress =====
+function renderProgress(){
+  setTimeout(initProgressCharts, 100);
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">📊 تقدّمي</h1>
+      <p class="text-[var(--muted)] text-sm">إحصائيات تفصيلية عن رحلتك التعليمية.</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">📚</div>
+        <div class="text-2xl font-black">${state.user.lessons}</div>
+        <div class="text-xs text-[var(--muted)]">دروس مكتملة</div>
+      </div>
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">📖</div>
+        <div class="text-2xl font-black">${state.user.words}</div>
+        <div class="text-xs text-[var(--muted)]">كلمات متعلمة</div>
+      </div>
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">🎧</div>
+        <div class="text-2xl font-black">${state.user.listening}</div>
+        <div class="text-xs text-[var(--muted)]">دقائق استماع</div>
+      </div>
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">🎤</div>
+        <div class="text-2xl font-black">${state.user.speaking}</div>
+        <div class="text-xs text-[var(--muted)]">تمارين نطق</div>
+      </div>
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">⚡</div>
+        <div class="text-2xl font-black">${state.user.xp}</div>
+        <div class="text-xs text-[var(--muted)]">XP مكتسبة</div>
+      </div>
+      <div class="card rounded-2xl p-4 text-center">
+        <div class="text-3xl mb-1">🔥</div>
+        <div class="text-2xl font-black">${state.user.longestStreak}</div>
+        <div class="text-xs text-[var(--muted)]">أطول سلسلة</div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-4">
+      <div class="card rounded-2xl p-5">
+        <h3 class="font-bold mb-4">تقدم اللغات</h3>
+        <canvas id="langChart" height="180"></canvas>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <h3 class="font-bold mb-4">XP آخر 7 أيام</h3>
+        <canvas id="xpChart" height="180"></canvas>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-5">
+      <h3 class="font-bold mb-4">تقدّم المستويات — ${LANGS[state.currentLang].name}</h3>
+      <div class="space-y-3">
+        ${LEVEL_ORDER.map(lv=>{
+          const p = state.progress[state.currentLang][lv];
+          return `
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="font-bold">${LEVELS[lv].title}</span>
+              <span class="text-[var(--muted)]">${Math.round(p)}%</span>
+            </div>
+            <div class="bg-[var(--bg-2)] rounded-full h-2.5 overflow-hidden">
+              <div class="progress-bar h-full brand-grad" style="width:${p}%"></div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-5">
+      <h3 class="font-bold mb-4">🏆 الإنجازات (${state.user.achievements}/${ACHIEVEMENTS.length})</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        ${ACHIEVEMENTS.map(a=>{
+          const earned = JSON.parse(localStorage.getItem('mbj_achievements')||'[]').includes(a.id);
+          return `
+          <div class="rounded-2xl p-4 text-center border-2 ${earned?'border-[var(--brand)] bg-[var(--bg-2)] badge-shine':'border-[var(--border)] opacity-50'}">
+            <div class="text-4xl mb-2">${a.icon}</div>
+            <div class="font-bold text-sm">${a.name}</div>
+            <div class="text-xs text-[var(--muted)]">${a.desc}</div>
+            ${earned?'<div class="text-xs text-green-500 mt-1">✓ مكتمل</div>':''}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+let langChart, xpChart;
+function initProgressCharts(){
+  const langCtx = document.getElementById('langChart');
+  if(langCtx){
+    if(langChart) langChart.destroy();
+    langChart = new Chart(langCtx, {
+      type:'bar',
+      data:{
+        labels:['الإسبانية','الإنجليزية','الفرنسية'],
+        datasets:[{
+          label:'نسبة التقدم %',
+          data:[overallProgress('es'),overallProgress('en'),overallProgress('fr')],
+          backgroundColor:['#f97316','#6366f1','#3b82f6'],
+          borderRadius:12
+        }]
+      },
+      options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}},responsive:true}
+    });
+  }
+  const xpCtx = document.getElementById('xpChart');
+  if(xpCtx){
+    if(xpChart) xpChart.destroy();
+    const days = ['السبت','الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+    const data = days.map((_,i)=>Math.floor(Math.random()*60)+ (i<5?20:5));
+    data[6] = state.user.xp > 200 ? 80 : 40;
+    xpChart = new Chart(xpCtx, {
+      type:'line',
+      data:{
+        labels:days,
+        datasets:[{
+          label:'XP',
+          data,
+          borderColor:'#0ea5a4',
+          backgroundColor:'rgba(14,165,164,.15)',
+          fill:true,
+          tension:.4,
+          pointBackgroundColor:'#f97316',
+          pointRadius:5
+        }]
+      },
+      options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}},responsive:true}
+    });
+  }
+}
+
+// ===== Profile =====
+function renderProfile(){
+  const earned = JSON.parse(localStorage.getItem('mbj_achievements')||'[]');
+  const fav = LANGS[state.user.favLang];
+  const overallP = Math.round((overallProgress('es')+overallProgress('en')+overallProgress('fr'))/3);
+  return `
+  <div class="space-y-6">
+    <div class="card rounded-3xl p-6 relative overflow-hidden">
+      <div class="absolute inset-0 brand-grad opacity-10"></div>
+      <div class="relative flex flex-col sm:flex-row items-center gap-5">
+        <div class="w-24 h-24 rounded-3xl brand-grad text-white text-4xl font-black flex items-center justify-center">${state.user.name[0]}</div>
+        <div class="text-center sm:text-right flex-1">
+          <h1 class="text-2xl font-black">${state.user.name}</h1>
+          <p class="text-[var(--muted)]">طالب بقسم اللغات — ثانوية محمد بن جدو</p>
+          <div class="flex flex-wrap justify-center sm:justify-start gap-2 mt-3">
+            <span class="bg-[var(--bg-2)] px-3 py-1 rounded-full text-sm font-bold">${fav.flag} ${fav.name}</span>
+            <span class="bg-[var(--bg-2)] px-3 py-1 rounded-full text-sm font-bold">⚡ ${state.user.xp} XP</span>
+            <span class="bg-[var(--bg-2)] px-3 py-1 rounded-full text-sm font-bold">🔥 ${state.user.streak} يوم</span>
+          </div>
+        </div>
+        <button onclick="editName()" class="px-4 py-2 rounded-xl border border-[var(--border)] font-bold text-sm">تعديل</button>
+      </div>
+    </div>
+
+    <!-- Overall Progress -->
+    <div class="card rounded-3xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold text-lg">نسبة التقدم الإجمالية</h2>
+        <span class="text-2xl font-black text-grad">${overallP}%</span>
+      </div>
+      <div class="bg-[var(--bg-2)] rounded-full h-4 overflow-hidden">
+        <div class="progress-bar h-full brand-grad" style="width:${overallP}%"></div>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="card rounded-2xl p-4 text-center"><div class="text-3xl mb-1">📚</div><div class="text-xl font-black">${state.user.lessons}</div><div class="text-xs text-[var(--muted)]">دروس</div></div>
+      <div class="card rounded-2xl p-4 text-center"><div class="text-3xl mb-1">📖</div><div class="text-xl font-black">${state.user.words}</div><div class="text-xs text-[var(--muted)]">كلمات</div></div>
+      <div class="card rounded-2xl p-4 text-center"><div class="text-3xl mb-1">🎧</div><div class="text-xl font-black">${state.user.listening}</div><div class="text-xs text-[var(--muted)]">استماع</div></div>
+      <div class="card rounded-2xl p-4 text-center"><div class="text-3xl mb-1">🏆</div><div class="text-xl font-black">${earned.length}</div><div class="text-xs text-[var(--muted)]">إنجازات</div></div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="card rounded-2xl p-5">
+      <h3 class="font-bold mb-4">🏅 آخر الإنجازات</h3>
+      <div class="flex flex-wrap gap-3">
+        ${ACHIEVEMENTS.filter(a=>earned.includes(a.id)).map(a=>`
+          <div class="flex items-center gap-2 bg-[var(--bg-2)] rounded-xl px-3 py-2">
+            <span class="text-2xl">${a.icon}</span><span class="text-sm font-bold">${a.name}</span>
+          </div>`).join('') || '<p class="text-[var(--muted)] text-sm">لا توجد إنجازات بعد. ابدأ التعلم!</p>'}
+      </div>
+    </div>
+
+    <button onclick="navigate('settings')" class="w-full card rounded-2xl p-4 font-bold hover:bg-[var(--bg-2)] transition">⚙️ إعدادات الحساب</button>
+  </div>`;
+}
+
+function editName(){
+  const content = `
+    <h2 class="text-xl font-bold mb-4">تعديل الاسم</h2>
+    <input id="nameInput" type="text" value="${state.user.name}" class="w-full p-3 rounded-xl bg-[var(--bg-2)] border-2 border-[var(--border)] focus:border-[var(--brand)] outline-none mb-4">
+    <div class="flex gap-2">
+      <button onclick="closeModalPlain()" class="flex-1 py-3 rounded-xl border border-[var(--border)] font-bold">إلغاء</button>
+      <button onclick="saveName()" class="flex-1 btn-primary py-3 rounded-xl font-bold">حفظ</button>
+    </div>`;
+  openModal(content);
+}
+function saveName(){
+  const v = $('#nameInput').value.trim() || 'طالب';
+  state.user.name = v;
+  $('#avatarBtn').textContent = v[0];
+  saveState();
+  closeModalPlain();
+  navigate('profile');
+  toast('تم تحديث الاسم','success');
+}
+
+// ===== Settings =====
+function renderSettings(){
+  return `
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-2xl font-black mb-1">⚙️ الإعدادات</h1>
+      <p class="text-[var(--muted)] text-sm">خصّص تجربتك في MBJ Lingo.</p>
+    </div>
+
+    <div class="card rounded-2xl divide-y divide-[var(--border)]">
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center gap-3"><span class="text-2xl">🌙</span><div><div class="font-bold">الوضع الليلي</div><div class="text-xs text-[var(--muted)]">تبديل المظهر</div></div></div>
+        <div class="toggle ${state.theme==='dark'?'on':''}" onclick="toggleTheme()"></div>
+      </div>
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center gap-3"><span class="text-2xl">🔊</span><div><div class="font-bold">إعدادات الصوت</div><div class="text-xs text-[var(--muted)]">تفعيل النطق الصوتي</div></div></div>
+        <div class="toggle ${state.sound?'on':''}" onclick="state.sound=!state.sound;saveState();navigate('settings')"></div>
+      </div>
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center gap-3"><span class="text-2xl">🔔</span><div><div class="font-bold">الإشعارات</div><div class="text-xs text-[var(--muted)]">تذكيرات يومية</div></div></div>
+        <div class="toggle ${state.notifications?'on':''}" onclick="state.notifications=!state.notifications;saveState();navigate('settings')"></div>
+      </div>
+      <div class="p-4">
+        <div class="flex items-center gap-3 mb-3"><span class="text-2xl">🌍</span><div><div class="font-bold">لغة التطبيق</div><div class="text-xs text-[var(--muted)]">لغة الواجهة</div></div></div>
+        <select class="w-full p-3 rounded-xl bg-[var(--bg-2)] border border-[var(--border)]" onchange="state.uiLang=this.value;saveState()">
+          <option value="ar" ${state.uiLang==='ar'?'selected':''}>العربية</option>
+          <option value="fr" ${state.uiLang==='fr'?'selected':''}>Français</option>
+          <option value="es" ${state.uiLang==='es'?'selected':''}>Español</option>
+        </select>
+      </div>
+      <div class="p-4">
+        <div class="flex items-center gap-3 mb-3"><span class="text-2xl">🎯</span><div><div class="font-bold">الهدف اليومي</div><div class="text-xs text-[var(--muted)]">XP يومياً</div></div></div>
+        <div class="flex gap-2">
+          ${[20,30,50,100].map(g=>`<button onclick="state.user.dailyGoal=${g};saveState();navigate('settings')" class="flex-1 py-2 rounded-xl font-bold text-sm ${state.user.dailyGoal===g?'brand-grad text-white':'border border-[var(--border)]'}">${g} XP</button>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-5">
+      <h3 class="font-bold mb-3">الحساب</h3>
+      <button onclick="editName()" class="w-full text-right p-3 rounded-xl hover:bg-[var(--bg-2)] font-bold">تعديل الاسم ←</button>
+      <button onclick="resetData()" class="w-full text-right p-3 rounded-xl hover:bg-red-50 text-red-500 font-bold">حذف كل البيانات ←</button>
+    </div>
+  </div>`;
+}
+
+function resetData(){
+  const content = `
+    <div class="text-center">
+      <div class="text-6xl mb-3">⚠️</div>
+      <h2 class="text-xl font-bold mb-2">تأكيد الحذف</h2>
+      <p class="text-[var(--muted)] mb-5">سيتم حذف كل تقدمك ونقاطك. لا يمكن التراجع.</p>
+      <div class="flex gap-2">
+        <button onclick="closeModalPlain()" class="flex-1 py-3 rounded-xl border border-[var(--border)] font-bold">إلغاء</button>
+        <button onclick="doReset()" class="flex-1 bg-red-500 text-white py-3 rounded-xl font-bold">حذف نهائي</button>
+      </div>
+    </div>`;
+  openModal(content);
+}
+function doReset(){
+  localStorage.removeItem('mbjlingo');
+  localStorage.removeItem('mbj_achievements');
+  location.reload();
+}
+
+// ===== About =====
+function renderAbout(){
+  return `
+  <div class="space-y-6">
+    <div class="card rounded-3xl p-8 text-center relative overflow-hidden">
+      <div class="absolute inset-0 brand-grad opacity-10"></div>
+      <div class="relative">
+        <div class="w-24 h-24 rounded-3xl brand-grad mx-auto flex items-center justify-center text-white text-5xl font-black mb-4" style="font-family:'Fredoka'">M</div>
+        <h1 class="text-3xl font-black mb-2" style="font-family:'Fredoka'">MBJ Lingo</h1>
+        <p class="text-[var(--muted)]">تعلّم • تكلّم • أتقن</p>
+        <p class="text-sm text-[var(--muted)] mt-3 max-w-md mx-auto">MBJ اختصار لـ Mohamed Ben Jedou، و Lingo تعني اللغات — ليكون معنى الاسم: لغات محمد بن جدو.</p>
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-6">
+      <h2 class="font-bold text-lg mb-3">🎯 الرؤية</h2>
+      <p class="text-[var(--muted)] leading-relaxed">تطبيق MBJ Lingo هو مشروع تعليمي مخصّص لتلاميذ قسم اللغات بثانوية محمد بن جدو، يهدف إلى جعل تعلم اللغات ممتعًا وسهلًا وتفاعليًا. مستوحى من فكرة التطبيقات التفاعلية الحديثة، لكنه يحمل تصميمًا وهوية خاصة ومستقلة تمامًا.</p>
+    </div>
+
+    <div class="card rounded-2xl p-6">
+      <h2 class="font-bold text-lg mb-3">✨ المميزات</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        ${['نظام مستويات A1 — C1','تعلم بالصوت والنطق','تمارين تفاعلية متنوعة','نقاط XP وسلسلة يومية','إنجازات ولوحة متصدرين','إحصائيات مفصّلة','وضع ليلي','دعم اللغة العربية'].map(f=>`
+          <div class="flex items-center gap-2"><span class="text-green-500">✓</span><span class="text-sm">${f}</span></div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-6">
+      <h2 class="font-bold text-lg mb-3">🌍 اللغات المدعومة</h2>
+      <div class="grid grid-cols-3 gap-3">
+        ${Object.values(LANGS).map(l=>`
+          <div class="text-center p-4 bg-[var(--bg-2)] rounded-2xl">
+            <div class="text-5xl mb-2">${l.flag}</div>
+            <div class="font-bold">${l.native}</div>
+            <div class="text-xs text-[var(--muted)]">${l.name}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="card rounded-2xl p-6 text-center">
+      <h2 class="font-bold text-lg mb-2">👨‍💻 بصمة المطورين</h2>
+      <p class="text-[var(--muted)] text-sm mb-4">صُمّم وطُوّر بكل حب لطلاب ثانوية محمد بن جدو.</p>
+      <div class="text-xs text-[var(--muted)]">الإصدار 1.0.0 © 2024 MBJ Lingo</div>
+    </div>
+  </div>`;
+}
+
+// ===== Modal =====
+function openModal(content){
+  $('#modalContent').innerHTML = content;
+  $('#modal').classList.remove('hidden');
+  $('#modal').classList.add('flex');
+}
+function closeModal(e){
+  if(e.target.id==='modal') closeModalPlain();
+}
+function closeModalPlain(){
+  $('#modal').classList.add('hidden');
+  $('#modal').classList.remove('flex');
+}
+
+// ===== Init =====
+function init(){
+  loadState();
+  applyTheme();
+  checkStreak();
+  $('#topXP').textContent = state.user.xp;
+  $('#topStreak').textContent = state.user.streak;
+  $('#avatarBtn').textContent = state.user.name[0];
+  setTimeout(()=>{
+    $('#splash').style.transition='opacity .5s';
+    $('#splash').style.opacity='0';
+    setTimeout(()=>{
+      $('#splash').style.display='none';
+      $('#app').classList.remove('hidden');
+      navigate('home');
+      // Welcome notification
+      if(state.notifications && state.user.streak>0){
+        setTimeout(()=>toast(`🔥 حافظ على سلسلتك! ${state.user.streak} يوم متتالي`,'success'), 800);
+      }
+    }, 500);
+  }, 1800);
+}
+
+document.getElementById('modal').addEventListener('click', closeModal);
+window.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModalPlain(); });
+init();
+</script>
+</body>
+</html>
